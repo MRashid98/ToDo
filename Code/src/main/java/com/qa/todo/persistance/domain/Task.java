@@ -1,13 +1,11 @@
 package com.qa.todo.persistance.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,20 +21,24 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Collection {
+public class Task {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "collection_name", unique = true)
-	private String collName;
+	@Column(name = "task_name")
+	private String taskName;
 
-	@OneToMany(mappedBy = "coll")
-	private List<Task> tasks;
+	@Column(name = "task_desc")
+	private String taskDesc;
 
-	public Collection(String collName) {
-		super();
-		this.collName = collName;
+	@ManyToOne
+	private Collection coll;
+
+	public Task(String taskName, String taskDesc) {
+		this.taskName = taskName;
+		this.taskDesc = taskDesc;
 	}
+
 }
