@@ -22,7 +22,6 @@ public class TaskService {
 
 	@Autowired
 	private TaskService(TaskRepo repo, ModelMapper mapper) {
-		super();
 		this.repo = repo;
 		this.mapper = mapper;
 	}
@@ -57,6 +56,9 @@ public class TaskService {
 
 	// delete {id}
 	public boolean delete(Long id) {
+		if (!this.repo.existsById(id)) {
+			throw new EntityNotFoundException();
+		}
 		this.repo.deleteById(id);
 		return !this.repo.existsById(id);
 	}

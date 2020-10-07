@@ -2,6 +2,7 @@ package com.qa.todo.persistance.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Collection {
 	@Column(name = "collection_name", unique = true)
 	private String collName;
 
-	@OneToMany(mappedBy = "coll")
+	@OneToMany(mappedBy = "coll", cascade = CascadeType.ALL)
 	private List<Task> tasks;
 
 	public Collection(String collName) {
