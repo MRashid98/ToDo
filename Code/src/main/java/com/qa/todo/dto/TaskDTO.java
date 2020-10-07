@@ -1,7 +1,5 @@
 package com.qa.todo.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,9 +13,10 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class CollectionDTO {
+public class TaskDTO {
 
 	private Long id;
-	private String collName;
-	private List<TaskDTO> tasks;
+	private String taskName;
+	private String taskDesc;
+
 }
