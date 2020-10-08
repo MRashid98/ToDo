@@ -1,10 +1,12 @@
 package com.qa.todo.persistance.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +26,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Collection {
+public class TaskList {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +35,10 @@ public class Collection {
 	@Column(name = "collection_name", unique = true)
 	private String collName;
 
-	@OneToMany(mappedBy = "coll", cascade = CascadeType.ALL)
-	private List<Task> tasks;
+	@OneToMany(mappedBy = "coll", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Task> tasks = new ArrayList<>();
 
-	public Collection(String collName) {
+	public TaskList(String collName) {
 		super();
 		this.collName = collName;
 	}

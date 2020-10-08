@@ -26,7 +26,7 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
 	@Column(name = "task_name")
 	private String taskName;
 
@@ -34,7 +34,7 @@ public class Task {
 	private String taskDesc;
 
 	@ManyToOne
-	private Collection coll;
+	private TaskList coll;
 
 	public Task(String taskName, String taskDesc) {
 		this.taskName = taskName;

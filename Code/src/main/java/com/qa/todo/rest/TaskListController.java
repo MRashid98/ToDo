@@ -14,45 +14,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.todo.dto.CollectionDTO;
-import com.qa.todo.persistance.domain.Collection;
-import com.qa.todo.service.CollectionService;
+import com.qa.todo.dto.TaskListDTO;
+import com.qa.todo.persistance.domain.TaskList;
+import com.qa.todo.service.TaskListService;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/collection")
-public class CollectionController {
+@RequestMapping("/tasklist")
+public class TaskListController {
 
-	private CollectionService service;
+	private TaskListService service;
 
-	public CollectionController(CollectionService service) {
+	public TaskListController(TaskListService service) {
 		super();
 		this.service = service;
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<CollectionDTO> create(@RequestBody Collection coll) {
-		CollectionDTO created = this.service.create(coll);
+	public ResponseEntity<TaskListDTO> create(@RequestBody TaskList coll) {
+		TaskListDTO created = this.service.create(coll);
 		return new ResponseEntity<>(created, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/readall")
-	public ResponseEntity<List<CollectionDTO>> readAll() {
+	public ResponseEntity<List<TaskListDTO>> readAll() {
 		return ResponseEntity.ok(this.service.read());
 	}
 
 	@GetMapping("/read/{id}")
-	public ResponseEntity<CollectionDTO> readById(@PathVariable Long id) {
+	public ResponseEntity<TaskListDTO> readById(@PathVariable Long id) {
 		return ResponseEntity.ok(this.service.read(id));
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<CollectionDTO> update(@PathVariable Long id, @RequestBody CollectionDTO bandDto) {
+	public ResponseEntity<TaskListDTO> update(@PathVariable Long id, @RequestBody TaskListDTO bandDto) {
 		return new ResponseEntity<>(this.service.update(bandDto, id), HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<CollectionDTO> deleteById(@PathVariable Long id) {
+	public ResponseEntity<TaskListDTO> deleteById(@PathVariable Long id) {
 		return this.service.delete(id) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}

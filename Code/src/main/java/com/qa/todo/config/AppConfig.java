@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 public class AppConfig {
 
 	@Bean
-	@Scope
+	@Scope("prototype")
 	public ModelMapper mapper() {
 		return new ModelMapper();
 	}

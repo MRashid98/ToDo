@@ -1,5 +1,6 @@
 package com.qa.todo.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -15,9 +16,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class CollectionDTO {
+public class TaskListDTO {
 
 	private Long id;
 	private String collName;
-	private List<TaskDTO> tasks;
+	private List<TaskDTO> tasks = new ArrayList<>();
 }

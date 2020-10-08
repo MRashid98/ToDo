@@ -23,7 +23,7 @@ import com.qa.todo.persistance.domain.Task;
 import com.qa.todo.service.TaskService;
 
 @SpringBootTest
-public class TaskControlloerUnitTest {
+public class TaskControllerUnitTest {
 
 	@Autowired
 	private TaskController controller;
@@ -73,7 +73,7 @@ public class TaskControlloerUnitTest {
 		when(this.service.read(this.id)).thenReturn(this.dto);
 
 		TaskDTO readOne = this.dto;
-		assertThat(new ResponseEntity<TaskDTO>(readOne, HttpStatus.OK));
+		assertThat(new ResponseEntity<TaskDTO>(readOne, HttpStatus.OK)).isEqualTo(this.controller.read(this.id));
 
 		verify(this.service, times(1)).read(this.id);
 	}
@@ -94,7 +94,8 @@ public class TaskControlloerUnitTest {
 
 		when(this.service.update(newTask, this.id)).thenReturn(newTaskPlusId);
 
-		assertThat(new ResponseEntity<TaskDTO>(newTaskPlusId, HttpStatus.ACCEPTED));
+		assertThat(new ResponseEntity<TaskDTO>(newTaskPlusId, HttpStatus.ACCEPTED))
+				.isEqualTo(this.controller.update(this.id, newTask));
 		verify(this.service, times(1)).update(newTask, this.id);
 	}
 
