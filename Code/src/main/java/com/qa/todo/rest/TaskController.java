@@ -38,17 +38,17 @@ public class TaskController {
 		return new ResponseEntity<>(created, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/readall")
-	public ResponseEntity<List<TaskDTO>> readall() {
-		return ResponseEntity.ok(this.service.read());
-	}
-
 	@GetMapping("/read/{id}")
-	public ResponseEntity<TaskDTO> readById(@PathVariable Long id) {
+	public ResponseEntity<TaskDTO> read(@PathVariable Long id) {
 		return ResponseEntity.ok(this.service.read(id));
 	}
 
-	@PutMapping("/update/{i}")
+	@GetMapping("/readall")
+	public ResponseEntity<List<TaskDTO>> read() {
+		return ResponseEntity.ok(this.service.read());
+	}
+
+	@PutMapping("/update/{id}")
 	public ResponseEntity<TaskDTO> update(@PathVariable Long id, @RequestBody TaskDTO dto) {
 		return new ResponseEntity<>(this.service.update(dto, id), HttpStatus.ACCEPTED);
 	}

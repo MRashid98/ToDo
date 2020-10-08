@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.todo.dto.TaskDTO;
+import com.qa.todo.exceptions.TaskListNotFoundException;
+import com.qa.todo.exceptions.TaskNotFoundException;
 import com.qa.todo.persistance.domain.Task;
 import com.qa.todo.persistance.repo.TaskRepo;
 import com.qa.todo.utils.SpringBeanUtils;
@@ -22,7 +24,6 @@ public class TaskService {
 
 	@Autowired
 	private TaskService(TaskRepo repo, ModelMapper mapper) {
-		super();
 		this.repo = repo;
 		this.mapper = mapper;
 	}
@@ -39,24 +40,29 @@ public class TaskService {
 
 	// read
 	public List<TaskDTO> read() {
-		return this.repo.findAll().stream().map(this::mapToDto).collect(Collectors.toList());
+		List<Task> found = this.repo.findAll();
+		List<TaskDTO> stream = found.stream().map(this::mapToDto).collect(Collectors.toList());
+		return stream;
 	}
 
 	// read
 	public TaskDTO read(Long id) {
-		Task found = this.repo.findById(id).orElseThrow(EntityNotFoundException::new);
+		Task found = this.repo.findById(id).orElseThrow(TaskNotFoundException::new);
 		return this.mapToDto(found);
 	}
 
 	// update
 	public TaskDTO update(TaskDTO dto, Long id) {
-		Task target = this.repo.findById(id).orElseThrow(EntityNotFoundException::new);
+		Task target = this.repo.findById(id).orElseThrow(TaskNotFoundException::new);
 		SpringBeanUtils.mergeNotNullObject(dto, target);
 		return this.mapToDto(this.repo.save(target));
 	}
 
 	// delete {id}
 	public boolean delete(Long id) {
+		if (!this.repo.existsById(id)) {
+			throw new TaskNotFoundException();
+		}
 		this.repo.deleteById(id);
 		return !this.repo.existsById(id);
 	}
