@@ -80,8 +80,10 @@ public class CollectionSeleniumTest {
 
 		WebElement workColRow = driver.findElement(By.xpath("/html/body/div[1]/table/tbody/tr/th"));
 		assertEquals("Work QA", workColRow.getText());
-	}
 
+		WebElement dltBtn = driver.findElement(By.xpath("/html/body/div[1]/table/tbody/tr[1]/td[2]/a[2]"));
+		dltBtn.click();
+	}
 
 	@AfterEach
 	public void cleanUp() {

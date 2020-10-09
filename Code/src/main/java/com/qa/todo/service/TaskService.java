@@ -3,14 +3,11 @@ package com.qa.todo.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.todo.dto.TaskDTO;
-import com.qa.todo.exceptions.TaskListNotFoundException;
 import com.qa.todo.exceptions.TaskNotFoundException;
 import com.qa.todo.persistance.domain.Task;
 import com.qa.todo.persistance.repo.TaskRepo;

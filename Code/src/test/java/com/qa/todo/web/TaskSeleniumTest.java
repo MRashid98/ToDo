@@ -40,6 +40,10 @@ public class TaskSeleniumTest {
 		driver = new ChromeDriver(chromeCfg());
 		driver.get("http://127.0.0.1:5500/html/index.html");
 
+	}
+
+	@Test
+	public void testCreateTask() {
 		// Create a sample collection
 		WebElement newColBtn = driver.findElement(By.xpath("/html/body/div[1]/a"));
 		newColBtn.click();
@@ -51,10 +55,6 @@ public class TaskSeleniumTest {
 
 		WebElement homeBtn = driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li/a"));
 		homeBtn.click();
-	}
-
-	@Test
-	public void testCreateTask() {
 		WebElement addNewTaskBtn = driver.findElement(By.xpath("/html/body/div[1]/table/tbody/tr[1]/td[1]/a"));
 		addNewTaskBtn.click();
 
@@ -65,7 +65,7 @@ public class TaskSeleniumTest {
 		taskDescTextField.sendKeys("To Create a To Do List in a form of a Web App");
 		createBtn.click();
 
-		WebElement homeBtn = driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li/a"));
+		homeBtn = driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li/a"));
 		homeBtn.click();
 
 		WebElement taskName = driver.findElement(By.xpath("/html/body/div[1]/table/tbody/tr[2]/td[1]"));
@@ -73,13 +73,10 @@ public class TaskSeleniumTest {
 
 		assertEquals("Complete Project", taskName.getText());
 		assertEquals("To Create a To Do List in a form of a Web App", taskDesc.getText());
-
+		
+		WebElement dltBtn = driver.findElement(By.xpath("/html/body/div[1]/table/tbody/tr[1]/td[2]/a[2]"));
+		dltBtn.click();
 	}
-
-//	@Test
-//	public void testUpdateTask() {
-//
-//	}
 
 	@AfterEach
 	public void cleanUp() {
